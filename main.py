@@ -11,6 +11,7 @@ from line_integration import (
     send_group_message,
     send_public_registration_link,
     send_volunteer_form_link,
+    build_assignment_message_lines,
     handle_webhook,
 )
 from logging_config import ERROR_CODES, logger, truncate_message
@@ -30,18 +31,7 @@ app = FastAPI(
 async def create_dispatch_plan(payload: DispatchRequest):
     try:
         result = DispatchService.process_dispatch(payload)
-        assignment_summary = []
-        for assignment in result['assignments']:
-            if assignment.assigned_volunteers:
-                volunteers_str = ','.join(assignment.assigned_volunteers)
-                task_location = payload.tasks[[t.id for t in payload.tasks].index(assignment.task_id)].location
-                task_address = LineService.reverse_geocode_location(task_location)
-                assignment_summary.append(f"{assignment.task_id}: {volunteers_str} ({task_address})")
-            else:
-                task_location = payload.tasks[[t.id for t in payload.tasks].index(assignment.task_id)].location
-                task_address = LineService.reverse_geocode_location(task_location)
-                assignment_summary.append(f"{assignment.task_id}: 未指派 ({task_address})")
-        
+        assignment_summary = build_assignment_message_lines(result, payload.dict())
         summary_text = "派工完成！\n" + "\n".join(assignment_summary)
         try:
             send_group_message(LINE_DEFAULT_GROUP_ID, summary_text)
@@ -99,16 +89,46 @@ async def register_line_volunteer(payload: LineVolunteerRegistration):
         )
 
 
+@app.post("/api/v1/line/register/bulk", response_model=List[LineRegisterResponse], status_code=status.HTTP_200_OK)
+async def register_line_volunteers_bulk(payload: List[LineVolunteerRegistration]):
+    try:
+        responses = []
+        for item in payload:
+            record = LineService.register_volunteer(item)
+            responses.append({
+                'status': 'success',
+                'line_user_id': record['line_user_id'],
+                'group_id': record['group_id'],
+                'message': 'LINE 志工已成功加入群組並登錄資料。'
+            })
+        return JSONResponse(content=jsonable_encoder(responses))
+    except Exception as e:
+        logger.error(truncate_message(str(e)))
+        raise HTTPException(
+            status_code=500,
+            detail={
+                'code': ERROR_CODES['LINE_REGISTER_FAILURE'],
+                'message': 'LINE 批次註冊失敗，請確認目前已開放報名且資料格式正確。'
+            }
+        )
+
+
 @app.post('/api/v1/dispatch/start', status_code=status.HTTP_200_OK)
 async def start_dispatch_registration(payload: DispatchSetupRequest):
     try:
         LineService.clear_registration_submissions()
         LineService.set_pending_dispatch_payload(payload.dict())
         LineService.open_registration()
-        send_public_registration_link(LINE_DEFAULT_GROUP_ID)
+        warnings = []
+        try:
+            send_public_registration_link(LINE_DEFAULT_GROUP_ID)
+        except Exception as exc:
+            warnings.append('LINE 報名連結推播失敗，但報名流程已開放。')
+            logger.warning(truncate_message(f'無法發送公開報名連結: {exc}'))
         return JSONResponse(content={
             'status': 'success',
-            'message': '已啟動報名流程。請在 LINE 群組內發送「結束報名」進行派工。'
+            'message': '已啟動報名流程。請在 LINE 群組內發送「結束報名」進行派工。',
+            'warnings': warnings
         })
     except Exception as exc:
         logger.error(truncate_message(str(exc)))
@@ -126,6 +146,48 @@ async def setup_dispatch(payload: DispatchSetupRequest):
     except Exception as exc:
         logger.error(truncate_message(str(exc)))
         raise HTTPException(status_code=500, detail={'code': ERROR_CODES['DISPATCH_SERVICE_FAILURE'], 'message': '派工設定儲存失敗。'})
+
+
+@app.post('/api/v1/dispatch/finish', response_model=DispatchResponse, status_code=status.HTTP_200_OK)
+async def finish_dispatch_registration():
+    try:
+        LineService.close_registration()
+        payload = LineService.get_pending_dispatch_payload()
+        if not payload:
+            raise HTTPException(
+                status_code=400,
+                detail={'code': ERROR_CODES['VALIDATION_ERROR'], 'message': '目前尚未建立派工事件，請先呼叫 /api/v1/dispatch/start 或 /api/v1/dispatch/setup。'}
+            )
+
+        volunteers = LineService.get_registered_volunteer_models()
+        if not volunteers:
+            raise HTTPException(
+                status_code=400,
+                detail={'code': ERROR_CODES['VALIDATION_ERROR'], 'message': '目前沒有有效志工資料，無法進行派工。'}
+            )
+
+        dispatch_request = DispatchRequest(
+            metadata=payload['metadata'],
+            work_types=payload['work_types'],
+            volunteers=volunteers,
+            tasks=payload['tasks'],
+        )
+        result = DispatchService.process_dispatch(dispatch_request)
+        summary_lines = build_assignment_message_lines(result, payload)
+
+        try:
+            send_group_message(LINE_DEFAULT_GROUP_ID, "派工完成！\n" + "\n".join(summary_lines))
+        except Exception as exc:
+            logger.warning(truncate_message(f'無法發送派工摘要到群組: {exc}'))
+
+        LineService.clear_pending_dispatch_payload()
+        LineService.clear_registration_submissions()
+        return JSONResponse(content=jsonable_encoder(result))
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error(truncate_message(str(exc)))
+        raise HTTPException(status_code=500, detail={'code': ERROR_CODES['DISPATCH_SERVICE_FAILURE'], 'message': '結束報名並派工失敗。'})
 
 
 # ---------------------------------------------------------------------------
@@ -192,6 +254,7 @@ def _render_skill_options(selected_skills: Optional[List[str]] = None) -> str:
 
 def _render_volunteer_form_html(line_user_id: Optional[str] = None, selected_skills: Optional[List[str]] = None) -> str:
     hidden_input = f'<input type="hidden" name="line_user_id" value="{line_user_id}" />' if line_user_id else ''
+    line_id_input = '' if line_user_id else '<label>LINE User ID (若有)<br><input type="text" name="line_user_id" placeholder="選填"></label>'
     id_note = '' if line_user_id else '<p class="helper">若您是在 LINE 群組中報名，建議於表單中填寫您的 LINE User ID 以利後續通知。</p>'
     skill_options = _render_skill_options(selected_skills)
     return f'''
@@ -222,7 +285,7 @@ def _render_volunteer_form_html(line_user_id: Optional[str] = None, selected_ski
           <form method="post" action="/volunteer/form/submit">
             {hidden_input}
             <label>姓名<br><input type="text" name="display_name" required></label>
-            <label>LINE User ID (若有)<br><input type="text" name="line_user_id" placeholder="選填"></label>
+            {line_id_input}
             <label>地址 (可輸入中文或英文地址)<br><input type="text" name="address" placeholder="例如：台北市信義區松仁路1號"></label>
             <label>專長（可複選）<br><div class="skill-grid">{skill_options}</div></label>
             <div class="note">若無法填寫地址，可改為手動輸入經緯度。</div>

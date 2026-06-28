@@ -33,6 +33,8 @@ class Task(BaseModel):
     type_id: str
     location: Location
     urgency: int = Field(..., ge=1, le=5)
+    destination: Optional[str] = None
+    job_description: Optional[str] = None
 
 
 class DispatchRequest(BaseModel):

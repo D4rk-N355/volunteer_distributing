@@ -1,0 +1,62 @@
+[
+  {
+    "line_user_id": "Uvolunteer0001xinyi",
+    "display_name": "林怡安",
+    "group_id": "Crescue-test-group-001",
+    "skills": ["search", "rope_rescue", "first_aid"],
+    "address": "台北市信義區市府路1號",
+    "location": {
+      "lat": 25.037519,
+      "lng": 121.56368
+    },
+    "availability": true
+  },
+  {
+    "line_user_id": "Uvolunteer0002daan",
+    "display_name": "陳柏宇",
+    "group_id": "Crescue-test-group-001",
+    "skills": ["first_aid", "nursing"],
+    "address": "台北市大安區新生南路二段1號",
+    "location": {
+      "lat": 25.033408,
+      "lng": 121.532908
+    },
+    "availability": true
+  },
+  {
+    "line_user_id": "Uvolunteer0003wanhua",
+    "display_name": "黃鈺婷",
+    "group_id": "Crescue-test-group-001",
+    "skills": ["logistics", "communications"],
+    "address": "台北市萬華區桂林路65號",
+    "location": {
+      "lat": 25.038638,
+      "lng": 121.502927
+    },
+    "availability": true
+  },
+  {
+    "line_user_id": "Uvolunteer0004songshan",
+    "display_name": "張明哲",
+    "group_id": "Crescue-test-group-001",
+    "skills": ["evacuation", "communications", "first_aid"],
+    "address": "台北市松山區八德路四段692號",
+    "location": {
+      "lat": 25.049399,
+      "lng": 121.578531
+    },
+    "availability": true
+  },
+  {
+    "line_user_id": "Uvolunteer0005backup",
+    "display_name": "吳佳蓉",
+    "group_id": "Crescue-test-group-001",
+    "skills": ["first_aid"],
+    "address": "台北市中正區中山南路21號",
+    "location": {
+      "lat": 25.036798,
+      "lng": 121.519018
+    },
+    "availability": false
+  }
+]
