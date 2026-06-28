@@ -1,0 +1,103 @@
+{
+  "line_register_valid": {
+    "line_user_id": "U1234567890abcdef",
+    "display_name": "志工小明",
+    "group_id": "group-001",
+    "skills": ["medical", "logistics"],
+    "location": {"lat": 23.654, "lng": 121.432}
+  },
+  "line_register_missing_display_name": {
+    "line_user_id": "Uabcdef1234567890",
+    "group_id": "group-002",
+    "skills": ["search", "rescue"],
+    "location": {"lat": 23.660, "lng": 121.440}
+  },
+  "dispatch_balanced_priority": {
+    "metadata": {
+      "incident_id": "test-001",
+      "priority_weighting": "balanced"
+    },
+    "work_types": [
+      {"type_id": "medical", "required_skills": ["medical", "firstaid"]},
+      {"type_id": "logistics", "required_skills": ["logistics"]}
+    ],
+    "volunteers": [
+      {
+        "id": "vol_01",
+        "skills": ["medical", "firstaid"],
+        "location": {"lat": 23.654, "lng": 121.432},
+        "availability": true
+      },
+      {
+        "id": "vol_02",
+        "skills": ["logistics"],
+        "location": {"lat": 23.660, "lng": 121.440},
+        "availability": true
+      }
+    ],
+    "tasks": [
+      {
+        "id": "task_101",
+        "type_id": "medical",
+        "location": {"lat": 23.656, "lng": 121.435},
+        "urgency": 5
+      },
+      {
+        "id": "task_102",
+        "type_id": "logistics",
+        "location": {"lat": 23.665, "lng": 121.445},
+        "urgency": 3
+      }
+    ]
+  },
+  "dispatch_speed_priority": {
+    "metadata": {
+      "incident_id": "test-002",
+      "priority_weighting": "speed"
+    },
+    "work_types": [
+      {"type_id": "medical", "required_skills": ["medical"]}
+    ],
+    "volunteers": [
+      {
+        "id": "vol_03",
+        "skills": ["medical"],
+        "location": {"lat": 23.670, "lng": 121.450},
+        "availability": true
+      }
+    ],
+    "tasks": [
+      {
+        "id": "task_201",
+        "type_id": "medical",
+        "location": {"lat": 23.656, "lng": 121.435},
+        "urgency": 4
+      }
+    ]
+  },
+  "dispatch_no_available_volunteer": {
+    "metadata": {
+      "incident_id": "test-003",
+      "priority_weighting": "balanced"
+    },
+    "work_types": [
+      {"type_id": "rescue", "required_skills": ["search", "rescue"]}
+    ],
+    "volunteers": [
+      {
+        "id": "vol_04",
+        "skills": ["medical"],
+        "location": {"lat": 23.660, "lng": 121.440},
+        "availability": true
+      }
+    ],
+    "tasks": [
+      {
+        "id": "task_301",
+        "type_id": "rescue",
+        "location": {"lat": 23.656, "lng": 121.435},
+        "urgency": 5
+      }
+    ]
+  }
+}

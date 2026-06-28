@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "incident_id": "incident-taipei-flood-20260628-001",
+    "priority_weighting": "balanced"
+  },
+  "work_types": [
+    {
+      "type_id": "search_and_rescue",
+      "required_skills": ["search", "rope_rescue", "first_aid"]
+    },
+    {
+      "type_id": "medical_support",
+      "required_skills": ["first_aid", "nursing"]
+    },
+    {
+      "type_id": "supply_logistics",
+      "required_skills": ["logistics", "communications"]
+    },
+    {
+      "type_id": "evacuation_support",
+      "required_skills": ["evacuation", "communications"]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_xinyi_rescue_001",
+      "type_id": "search_and_rescue",
+      "destination": "台北市信義區市府路1號集合點",
+      "job_description": "搜救與急救支援",
+      "location": {
+        "lat": 25.033964,
+        "lng": 121.564468
+      },
+      "urgency": 5
+    },
+    {
+      "id": "task_daan_medical_001",
+      "type_id": "medical_support",
+      "destination": "台北市大安區新生南路二段臨時醫護站",
+      "job_description": "醫療急救與傷患照護",
+      "location": {
+        "lat": 25.026158,
+        "lng": 121.543709
+      },
+      "urgency": 4
+    },
+    {
+      "id": "task_wanhua_logistics_001",
+      "type_id": "supply_logistics",
+      "destination": "台北市萬華區桂林路65號物資集散點",
+      "job_description": "物資搬運、補給與現場後勤支援",
+      "location": {
+        "lat": 25.037516,
+        "lng": 121.499781
+      },
+      "urgency": 3
+    },
+    {
+      "id": "task_songshan_evac_001",
+      "type_id": "evacuation_support",
+      "destination": "台北市松山區八德路四段692號避難引導點",
+      "job_description": "撤離引導與通訊協調",
+      "location": {
+        "lat": 25.050448,
+        "lng": 121.577961
+      },
+      "urgency": 4
+    }
+  ]
+}
