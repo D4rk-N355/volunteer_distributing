@@ -1,0 +1,46 @@
+[
+  {
+    "line_user_id": "line_id_of_vol_1",
+    "display_name": "vol_1",
+    "group_id": "C004a0bfa1bf551f316301f1728a80804",
+    "skills": [
+      "rope_rescue",
+      "first_aid"
+    ],
+    "address": "台北市信義區信義路五段7號",
+    "location": {
+      "lat": 25.0338,
+      "lng": 121.5640
+    },
+    "availability": true
+  },
+  {
+    "line_user_id": "line_id_of_vol_2",
+    "display_name": "vol_2",
+    "group_id": "C004a0bfa1bf551f316301f1728a80804",
+    "skills": [
+      "first_aid",
+      "nursing"
+    ],
+    "address": "台北市大安區新生南路三段",
+    "location": {
+      "lat": 25.0310,
+      "lng": 121.5430
+    },
+    "availability": true
+  },
+  {
+    "line_user_id": "line_id_of_vol_3",
+    "display_name": "vol_3",
+    "group_id": "C004a0bfa1bf551f316301f1728a80804",
+    "skills": [
+      "first_aid"
+    ],
+    "address": "台北市萬華區中華路一段",
+    "location": {
+      "lat": 25.0422,
+      "lng": 121.5074
+    },
+    "availability": false
+  }
+]

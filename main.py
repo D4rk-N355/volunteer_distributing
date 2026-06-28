@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from fastapi import FastAPI, Form, HTTPException, status, Header, Request
 from fastapi.encoders import jsonable_encoder
@@ -171,35 +171,81 @@ async def line_webhook(request: Request, x_line_signature: str = Header(None)):
         raise HTTPException(status_code=400, detail={'code': 'LINE_WEBHOOK_FAILURE', 'message': truncate_message(str(exc))})
 
 
-@app.get('/volunteer/form/{line_user_id}', response_class=HTMLResponse)
-def volunteer_form_with_user_id(line_user_id: str):
-    hidden_input = f'<input type="hidden" name="line_user_id" value="{line_user_id}" />'
-    form_html = f'''
-    <html>
-      <head><title>志工報到表單</title></head>
+SKILL_OPTIONS = [
+    ('first_aid', '急救'),
+    ('rope_rescue', '繩索救援'),
+    ('nursing', '護理'),
+    ('logistics', '後勤/搬運'),
+    ('communications', '通訊協調'),
+    ('evacuation', '撤離協助'),
+    ('search', '搜救'),
+]
+
+
+def _render_skill_options(selected_skills: Optional[List[str]] = None) -> str:
+    selected = set(selected_skills or [])
+    return ''.join(
+        f'<label class="chip"><input type="checkbox" name="skills" value="{value}" {"checked" if value in selected else ""}> {label}</label>'
+        for value, label in SKILL_OPTIONS
+    )
+
+
+def _render_volunteer_form_html(line_user_id: Optional[str] = None, selected_skills: Optional[List[str]] = None) -> str:
+    hidden_input = f'<input type="hidden" name="line_user_id" value="{line_user_id}" />' if line_user_id else ''
+    id_note = '' if line_user_id else '<p class="helper">若您是在 LINE 群組中報名，建議於表單中填寫您的 LINE User ID 以利後續通知。</p>'
+    skill_options = _render_skill_options(selected_skills)
+    return f'''
+    <!DOCTYPE html>
+    <html lang="zh-Hant">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>志工報到表單</title>
+        <style>
+          body {{ font-family: "Microsoft JhengHei", Arial, sans-serif; background: #f5f7fb; margin: 0; padding: 24px; color: #1f2937; }}
+          .card {{ max-width: 760px; margin: 0 auto; background: white; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); padding: 28px; }}
+          h1 {{ margin-top: 0; color: #0f766e; }}
+          .helper {{ color: #64748b; font-size: 0.95rem; }}
+          label {{ display: block; margin-bottom: 12px; font-weight: 600; }}
+          input[type="text"], input[type="number"], select {{ width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 10px; box-sizing: border-box; margin-top: 6px; }}
+          .chip {{ display: inline-block; padding: 8px 12px; margin: 6px 8px 6px 0; border: 1px solid #bae6fd; border-radius: 999px; background: #f0f9ff; font-weight: 500; }}
+          .chip input {{ margin-right: 6px; }}
+          .note {{ background: #f8fafc; border-left: 4px solid #14b8a6; padding: 12px; border-radius: 8px; margin: 12px 0; }}
+          button {{ background: #0f766e; color: white; border: none; padding: 12px 18px; border-radius: 999px; cursor: pointer; font-size: 1rem; }}
+          button:hover {{ background: #115e59; }}
+        </style>
+      </head>
       <body>
-        <h1>志工報到表單</h1>
-        <form method="post" action="/volunteer/form/submit">
-          {hidden_input}
-          <label>姓名:<br><input type="text" name="display_name" required></label><br><br>
-          <label>LINE User ID (若有):<br><input type="text" name="line_user_id" placeholder="選填"></label><br><br>
-          <label>地址 (可輸入中文或英文地址):<br><input type="text" name="address" placeholder="例如：台北市信義區松仁路1號"></label><br><br>
-          <label>技能 (以逗號分隔):<br><input type="text" name="skills" placeholder="例如：急救,搬運,溝通"></label><br><br>
-          <p>若無法填寫地址，可改為手動輸入經緯度。</p>
-          <label>可服務緯度:<br><input type="number" step="0.000001" name="lat"></label><br><br>
-          <label>可服務經度:<br><input type="number" step="0.000001" name="lng"></label><br><br>
-          <label>是否可立即出勤:<br>
-            <select name="availability">
-              <option value="true">是</option>
-              <option value="false">否</option>
-            </select>
-          </label><br><br>
-          <button type="submit">送出報到資料</button>
-        </form>
+        <div class="card">
+          <h1>志工報到表單</h1>
+          {id_note}
+          <form method="post" action="/volunteer/form/submit">
+            {hidden_input}
+            <label>姓名<br><input type="text" name="display_name" required></label>
+            <label>LINE User ID (若有)<br><input type="text" name="line_user_id" placeholder="選填"></label>
+            <label>地址 (可輸入中文或英文地址)<br><input type="text" name="address" placeholder="例如：台北市信義區松仁路1號"></label>
+            <label>專長（可複選）<br><div class="skill-grid">{skill_options}</div></label>
+            <div class="note">若無法填寫地址，可改為手動輸入經緯度。</div>
+            <label>可服務緯度<br><input type="number" step="0.000001" name="lat"></label>
+            <label>可服務經度<br><input type="number" step="0.000001" name="lng"></label>
+            <label>是否可立即出勤<br>
+              <select name="availability">
+                <option value="true">是</option>
+                <option value="false">否</option>
+              </select>
+            </label>
+            <br><br>
+            <button type="submit">送出報到資料</button>
+          </form>
+        </div>
       </body>
     </html>
     '''
-    return HTMLResponse(content=form_html)
+
+
+@app.get('/volunteer/form/{line_user_id}', response_class=HTMLResponse)
+def volunteer_form_with_user_id(line_user_id: str):
+    return HTMLResponse(content=_render_volunteer_form_html(line_user_id=line_user_id))
 
 
 @app.get('/webhook/volunteer/form/{line_user_id}', response_class=HTMLResponse)
@@ -214,42 +260,14 @@ def webhook_volunteer_form():
 
 @app.get('/volunteer/form', response_class=HTMLResponse)
 def volunteer_form(line_user_id: Optional[str] = None):
-    hidden_input = f'<input type="hidden" name="line_user_id" value="{line_user_id}" />' if line_user_id else ''
-    id_note = '' if line_user_id else '<p>若您是在 LINE 群組中報名，建議於表單中填寫您的 LINE User ID 以利後續通知。</p>'
-    form_html = f'''
-    <html>
-      <head><title>志工報到表單</title></head>
-      <body>
-        <h1>志工報到表單</h1>
-        {id_note}
-        <form method="post" action="/volunteer/form/submit">
-          {hidden_input}
-          <label>姓名:<br><input type="text" name="display_name" required></label><br><br>
-          <label>LINE User ID (若有):<br><input type="text" name="line_user_id" placeholder="選填"></label><br><br>
-          <label>地址 (可輸入中文或英文地址):<br><input type="text" name="address" placeholder="例如：台北市信義區松仁路1號"></label><br><br>
-          <label>技能 (以逗號分隔):<br><input type="text" name="skills" placeholder="例如：急救,搬運,溝通"></label><br><br>
-          <p>若無法填寫地址，可改為手動輸入經緯度。</p>
-          <label>可服務緯度:<br><input type="number" step="0.000001" name="lat"></label><br><br>
-          <label>可服務經度:<br><input type="number" step="0.000001" name="lng"></label><br><br>
-          <label>是否可立即出勤:<br>
-            <select name="availability">
-              <option value="true">是</option>
-              <option value="false">否</option>
-            </select>
-          </label><br><br>
-          <button type="submit">送出報到資料</button>
-        </form>
-      </body>
-    </html>
-    '''
-    return HTMLResponse(content=form_html)
+    return HTMLResponse(content=_render_volunteer_form_html(line_user_id=line_user_id))
 
 
 @app.post('/volunteer/form/submit', response_class=HTMLResponse)
 async def volunteer_form_submit(
     display_name: str = Form(...),
     line_user_id: Optional[str] = Form(None),
-    skills: str = Form(''),
+    skills: Optional[List[str]] = Form(default=None),
     address: Optional[str] = Form(None),
     lat: Optional[float] = Form(None),
     lng: Optional[float] = Form(None),
@@ -275,23 +293,39 @@ async def volunteer_form_submit(
             status_code=400,
         )
 
+    normalized_skills = [s.strip() for s in (skills or []) if s and s.strip()]
     submission = {
         'line_user_id': line_user_id,
         'display_name': display_name.strip(),
-        'skills': [s.strip() for s in skills.split(',') if s.strip()],
+        'skills': normalized_skills,
         'address': address.strip() if address else None,
         'location': location,
         'availability': availability.lower() in ('true', 'yes', '1', 'on'),
     }
     LineService.add_registration_submission(submission)
 
+    skills_text = ', '.join(submission['skills']) if submission['skills'] else '尚未選擇專長'
     html = f'''
-    <html>
-      <head><title>報到完成</title></head>
+    <!DOCTYPE html>
+    <html lang="zh-Hant">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>報到完成</title>
+        <style>
+          body {{ font-family: "Microsoft JhengHei", Arial, sans-serif; background: #f5f7fb; margin: 0; padding: 24px; color: #1f2937; }}
+          .card {{ max-width: 720px; margin: 0 auto; background: white; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); padding: 28px; }}
+          h1 {{ color: #0f766e; }}
+          .pill {{ display: inline-block; background: #ecfeff; color: #0f766e; padding: 6px 10px; border-radius: 999px; margin-top: 8px; }}
+        </style>
+      </head>
       <body>
-        <h1>報到完成</h1>
-        <p>感謝 {submission['display_name']} 完成報到。</p>
-        <p>系統已紀錄您的資訊，請等待派工通知。</p>
+        <div class="card">
+          <h1>報到完成</h1>
+          <p>感謝 <strong>{submission['display_name']}</strong> 完成報到。</p>
+          <p>系統已紀錄您的資訊，請等待派工通知。</p>
+          <div class="pill">專長：{skills_text}</div>
+        </div>
       </body>
     </html>
     '''

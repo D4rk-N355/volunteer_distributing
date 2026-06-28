@@ -321,11 +321,39 @@ class DispatchService:
 
     @classmethod
     def run_assignment_algorithm(cls, available_vols: List[Volunteer], tasks: List[Task], work_types: List[WorkType], weighting: str) -> List[Assignment]:
-        assignments: List[Assignment] = []
+        if not tasks:
+            return []
+
+        task_assignments: Dict[str, List[Dict]] = {task.id: [] for task in tasks}
         remaining_vols = available_vols.copy()
+
+        # Step 1: 為每個任務至少指派一名最高分志工
         for task in sorted(tasks, key=lambda x: x.urgency, reverse=True):
             work_type = cls.get_work_type(task.type_id, work_types)
             candidates = [cls.score_candidate(vol, task, work_type, weighting) for vol in remaining_vols]
+            if not candidates:
+                continue
+            candidates.sort(key=lambda item: item['final_score'], reverse=True)
+            best = candidates[0]
+            best['task'] = task
+            task_assignments[task.id].append(best)
+            remaining_vols = [vol for vol in remaining_vols if vol.id != best['volunteer'].id]
+
+        # Step 2: 若仍有剩餘志工，依最佳匹配分配至任務
+        for vol in remaining_vols:
+            best_candidate = None
+            for task in tasks:
+                work_type = cls.get_work_type(task.type_id, work_types)
+                candidate = cls.score_candidate(vol, task, work_type, weighting)
+                candidate['task'] = task
+                if best_candidate is None or candidate['final_score'] > best_candidate['final_score']:
+                    best_candidate = candidate
+            if best_candidate is not None:
+                task_assignments[best_candidate['task'].id].append(best_candidate)
+
+        assignments: List[Assignment] = []
+        for task in sorted(tasks, key=lambda x: x.urgency, reverse=True):
+            candidates = task_assignments.get(task.id, [])
             if not candidates:
                 assignments.append(Assignment(
                     task_id=task.id,
@@ -338,31 +366,33 @@ class DispatchService:
                 continue
 
             candidates.sort(key=lambda item: item['final_score'], reverse=True)
-            best = candidates[0]
-            assigned = best['volunteer']
-            eta_minutes = int((best['route_km'] / cls.AVERAGE_SPEED_KMH) * 60 + 5)
+            assigned_ids = [candidate['volunteer'].id for candidate in candidates]
+            etas = [int((candidate['route_km'] / cls.AVERAGE_SPEED_KMH) * 60 + 5) for candidate in candidates]
+            avg_skill = round(sum(candidate['skill_score'] for candidate in candidates) / len(candidates), 2)
+            avg_distance = round(sum(candidate['distance_score'] for candidate in candidates) / len(candidates), 2)
+            avg_urgency = round(sum(candidate['urgency_score'] for candidate in candidates) / len(candidates), 2)
+            avg_final = round(sum(candidate['final_score'] for candidate in candidates) / len(candidates), 2)
             breakdown = ScoreBreakdown(
-                skill_score=best['skill_score'],
-                distance_score=best['distance_score'],
-                urgency_score=best['urgency_score'],
-                final_score=best['final_score'],
+                skill_score=avg_skill,
+                distance_score=avg_distance,
+                urgency_score=avg_urgency,
+                final_score=avg_final,
             )
+            eta_minutes = min(etas)
             reasoning = (
-                f"{assigned.id} 具技能 {assigned.skills}，需求技能 {work_type.required_skills if work_type else '未知'}，"
-                f"預估路徑長度 {best['route_km']:.2f} km，緊急度 {task.urgency}。"
+                f'任務 {task.id} 已指派 {len(assigned_ids)} 名志工：{", ".join(assigned_ids)}。'
             )
-            if best['skill_score'] < 0.4:
-                reasoning += ' 技能匹配度偏低，請留意。'
+            if any(candidate['skill_score'] < 0.4 for candidate in candidates):
+                reasoning += ' 部分志工技能匹配度偏低，請留意。'
 
             assignments.append(Assignment(
                 task_id=task.id,
-                assigned_volunteers=[assigned.id],
+                assigned_volunteers=assigned_ids,
                 eta_minutes=eta_minutes,
-                confidence=best['final_score'],
+                confidence=avg_final,
                 score_breakdown=breakdown,
                 reasoning_summary=reasoning,
             ))
-            remaining_vols = [vol for vol in remaining_vols if vol.id != assigned.id]
 
         return assignments
 

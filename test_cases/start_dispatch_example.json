@@ -1,0 +1,42 @@
+{
+  "metadata": {
+    "incident_id": "incident-taipei-sm-test",
+    "priority_weighting": "balanced"
+  },
+  "work_types": [
+    {
+      "type_id": "search_and_rescue",
+      "required_skills": [
+        "rope_rescue",
+        "first_aid"
+      ]
+    },
+    {
+      "type_id": "medical_support",
+      "required_skills": [
+        "first_aid",
+        "nursing"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_tpe_01",
+      "type_id": "search_and_rescue",
+      "location": {
+        "lat": 25.0336,
+        "lng": 121.5646
+      },
+      "urgency": 5
+    },
+    {
+      "id": "task_tpe_02",
+      "type_id": "medical_support",
+      "location": {
+        "lat": 25.0305,
+        "lng": 121.5422
+      },
+      "urgency": 3
+    }
+  ]
+}

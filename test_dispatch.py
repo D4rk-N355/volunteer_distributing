@@ -145,7 +145,8 @@ def test_scenario_2_algorithm_fallback():
 
     assert result['status'] == 'success'
     assert result['mode'] == 'algorithm_only'
-    assert result['assignments'][0].assigned_volunteers == ['vol_01']
+    assert set(result['assignments'][0].assigned_volunteers) == {'vol_01', 'vol_02'}
+    assert result['unassigned_tasks'] == []
 
     logger.info(f'派發狀態: {result["status"]}')
     logger.info(f'派發 ID: {result["dispatch_id"]}')
@@ -160,7 +161,147 @@ def test_scenario_2_algorithm_fallback():
     return result
 
 
-def test_scenario_3_multiple_tasks():
+def test_scenario_3_more_volunteers_than_tasks():
+    """測試場景 3：任務數少於志工數，應該人盡其用"""
+    logger.info('\n' + '=' * 60)
+    logger.info('測試場景 3：任務數少於志工數，應該人盡其用')
+    logger.info('=' * 60)
+
+    vols = [
+        Volunteer(
+            id='vol_01',
+            skills=['medical'],
+            location=Location(lat=23.654, lng=121.432),
+            availability=True
+        ),
+        Volunteer(
+            id='vol_02',
+            skills=['medical', 'firstaid'],
+            location=Location(lat=23.658, lng=121.434),
+            availability=True
+        ),
+        Volunteer(
+            id='vol_03',
+            skills=['logistics'],
+            location=Location(lat=23.660, lng=121.438),
+            availability=True
+        ),
+    ]
+
+    tasks = [
+        Task(
+            id='task_201',
+            type_id='medical',
+            location=Location(lat=23.656, lng=121.435),
+            urgency=5
+        ),
+    ]
+
+    metadata = Metadata(
+        incident_id='test-003',
+        priority_weighting='balanced'
+    )
+
+    work_types = [
+        WorkType(type_id='medical', required_skills=['medical', 'firstaid']),
+    ]
+
+    request = DispatchRequest(
+        metadata=metadata,
+        work_types=work_types,
+        volunteers=vols,
+        tasks=tasks
+    )
+
+    result = DispatchService.process_dispatch(request)
+    assert result['status'] == 'success'
+    assert len(result['assignments']) == 1
+    assert len(result['assignments'][0].assigned_volunteers) == 3
+    assert result['unassigned_tasks'] == []
+
+    logger.info(f'派發狀態: {result["status"]}')
+    logger.info(f'任務數: {len(result["assignments"])}')
+    logger.info(f'指派志工: {result["assignments"][0].assigned_volunteers}')
+
+    return result
+
+
+def test_scenario_4_task_distribution_with_extra_volunteers():
+    """測試場景 4：任務數少於志工數時，仍能平均分配任務"""
+    logger.info('\n' + '=' * 60)
+    logger.info('測試場景 4：任務數少於志工數時，仍能平均分配任務')
+    logger.info('=' * 60)
+
+    vols = [
+        Volunteer(
+            id='vol_01',
+            skills=['medical'],
+            location=Location(lat=23.654, lng=121.432),
+            availability=True
+        ),
+        Volunteer(
+            id='vol_02',
+            skills=['medical', 'firstaid'],
+            location=Location(lat=23.658, lng=121.434),
+            availability=True
+        ),
+        Volunteer(
+            id='vol_03',
+            skills=['logistics'],
+            location=Location(lat=23.660, lng=121.438),
+            availability=True
+        ),
+    ]
+
+    tasks = [
+        Task(
+            id='task_401',
+            type_id='medical',
+            location=Location(lat=23.656, lng=121.435),
+            urgency=5
+        ),
+        Task(
+            id='task_402',
+            type_id='logistics',
+            location=Location(lat=23.665, lng=121.445),
+            urgency=4
+        ),
+    ]
+
+    metadata = Metadata(
+        incident_id='test-004',
+        priority_weighting='balanced'
+    )
+
+    work_types = [
+        WorkType(type_id='medical', required_skills=['medical', 'firstaid']),
+        WorkType(type_id='logistics', required_skills=['logistics']),
+    ]
+
+    request = DispatchRequest(
+        metadata=metadata,
+        work_types=work_types,
+        volunteers=vols,
+        tasks=tasks
+    )
+
+    result = DispatchService.process_dispatch(request)
+    assert result['status'] == 'success'
+    assert len(result['assignments']) == 2
+    assert all(len(a.assigned_volunteers) >= 1 for a in result['assignments'])
+    assigned_ids = {vid for assignment in result['assignments'] for vid in assignment.assigned_volunteers}
+    assert assigned_ids == {'vol_01', 'vol_02', 'vol_03'}
+    assert result['unassigned_tasks'] == []
+
+    logger.info(f'派發狀態: {result["status"]}')
+    logger.info(f'總任務數: {len(result["assignments"])}')
+    for assignment in result['assignments']:
+        logger.info(f'  任務 {assignment.task_id}: {assignment.assigned_volunteers}')
+
+    return result
+
+
+def test_scenario_4_multiple_tasks():
     """測試場景 3：多個任務，驗證志工池管理"""
     logger.info('\n' + '=' * 60)
     logger.info('測試場景 3：多個任務，驗證志工池管理')
@@ -303,7 +444,8 @@ if __name__ == '__main__':
     try:
         test_scenario_1_deterministic_dispatch()
         test_scenario_2_algorithm_fallback()
-        test_scenario_3_multiple_tasks()
+        test_scenario_3_more_volunteers_than_tasks()
+        test_scenario_4_multiple_tasks()
         test_scenario_4_check_eta_calculation()
 
         logger.info('\n' + '=' * 60)

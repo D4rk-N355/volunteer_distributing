@@ -87,6 +87,49 @@ def send_group_message(group_id: str, text: str) -> dict:
         raise
 
 
+def _resolve_volunteer_label(volunteer_id: str) -> str:
+    for record in LineService.registered_volunteers + LineService.registration_submissions:
+        if not record:
+            continue
+        if record.get('line_user_id') == volunteer_id:
+            label = record.get('display_name') or record.get('line_user_id') or volunteer_id
+            line_id = record.get('line_user_id') or volunteer_id
+            return f"@{label}({line_id})"
+        if record.get('display_name') == volunteer_id:
+            label = record.get('display_name') or volunteer_id
+            line_id = record.get('line_user_id') or volunteer_id
+            return f"@{label}({line_id})"
+    return f"@{volunteer_id}({volunteer_id})"
+
+
+def _build_assignment_message_lines(result, payload_obj) -> list[str]:
+    lines = []
+    for assignment in result['assignments']:
+        if assignment.assigned_volunteers:
+            task_obj = next((t for t in payload_obj['tasks'] if t['id'] == assignment.task_id), None)
+            task_address = '未知位置'
+            task_label = assignment.task_id
+            if task_obj and task_obj.get('location'):
+                loc = task_obj['location']
+                location_obj = Location(lat=loc['lat'], lng=loc['lng']) if isinstance(loc, dict) else loc
+                task_address = LineService.reverse_geocode_location(location_obj)
+            if task_obj and task_obj.get('type_id'):
+                task_label = task_obj['type_id']
+
+            for volunteer_id in assignment.assigned_volunteers:
+                volunteer_label = _resolve_volunteer_label(volunteer_id)
+                lines.append(f"{volunteer_label} 前往 {task_address} 執行任務 {task_label}")
+        else:
+            task_obj = next((t for t in payload_obj['tasks'] if t['id'] == assignment.task_id), None)
+            task_address = '未知位置'
+            if task_obj and task_obj.get('location'):
+                loc = task_obj['location']
+                location_obj = Location(lat=loc['lat'], lng=loc['lng']) if isinstance(loc, dict) else loc
+                task_address = LineService.reverse_geocode_location(location_obj)
+            lines.append(f"任務 {assignment.task_id} 未指派（{task_address}）")
+    return lines
+
+
 def handle_webhook(body: str, signature: str):
     if not handler:
         raise RuntimeError('LINE webhook handler is not configured.')
@@ -145,28 +188,9 @@ def handle_message_event(event: MessageEvent):
                     tasks=payload['tasks'],
                 )
                 result = DispatchService.process_dispatch(dispatch_request)
-                assignment_summary = []
-                for assignment in result['assignments']:
-                    if assignment.assigned_volunteers:
-                        volunteers_str = ','.join(assignment.assigned_volunteers)
-                        payload_obj = LineService.get_pending_dispatch_payload()
-                        task_obj = next((t for t in payload_obj['tasks'] if t['id'] == assignment.task_id), None)
-                        task_address = '未知位置'
-                        if task_obj and task_obj.get('location'):
-                            loc = task_obj['location']
-                            location_obj = Location(lat=loc['lat'], lng=loc['lng']) if isinstance(loc, dict) else loc
-                            task_address = LineService.reverse_geocode_location(location_obj)
-                        assignment_summary.append(f"{assignment.task_id}: {volunteers_str} ({task_address})")
-                    else:
-                        payload_obj = LineService.get_pending_dispatch_payload()
-                        task_obj = next((t for t in payload_obj['tasks'] if t['id'] == assignment.task_id), None)
-                        task_address = '未知位置'
-                        if task_obj and task_obj.get('location'):
-                            loc = task_obj['location']
-                            location_obj = Location(lat=loc['lat'], lng=loc['lng']) if isinstance(loc, dict) else loc
-                            task_address = LineService.reverse_geocode_location(location_obj)
-                        assignment_summary.append(f"{assignment.task_id}: 未指派 ({task_address})")
-                
+                payload_obj = LineService.get_pending_dispatch_payload()
+                assignment_summary = _build_assignment_message_lines(result, payload_obj) if payload_obj else []
+
                 summary_text = "派工完成！\n" + "\n".join(assignment_summary)
                 send_group_message(group_id, summary_text)
 

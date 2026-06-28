@@ -1,0 +1,177 @@
+2026-06-25 17:52:39,393 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 17:52:39,393 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 17:52:39,393 INFO [disaster_dispatcher] 🔍 偵錯模型: neural-chat
+2026-06-25 17:52:41,780 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 17:52:41,780 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 17:52:41,780 INFO [disaster_dispatcher] 🔍 偵錯模型: neural-chat
+2026-06-25 17:53:23,032 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 17:53:23,032 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 17:53:23,032 INFO [disaster_dispatcher] 🔍 偵錯模型: neural-chat
+2026-06-25 17:53:25,442 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 17:53:25,442 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 17:53:25,442 INFO [disaster_dispatcher] 🔍 偵錯模型: neural-chat
+2026-06-25 17:53:44,807 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 17:53:44,807 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 17:53:44,807 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 17:53:47,197 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 17:53:47,198 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 17:53:47,198 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:01:39,501 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-25 18:01:39,501 INFO [disaster_dispatcher] 📌 已儲存派工設定。
+2026-06-25 18:01:39,501 INFO [disaster_dispatcher] 📣 開始志工報名流程。
+2026-06-25 18:01:39,782 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804
+2026-06-25 18:04:47,973 INFO [disaster_dispatcher] 📥 收到志工報名資料: 小白吃
+2026-06-25 18:05:37,990 INFO [disaster_dispatcher] 📥 收到志工報名資料: 正哦祥
+2026-06-25 18:06:29,622 INFO [disaster_dispatcher] 📥 收到志工報名資料: 啊我不要阿
+2026-06-25 18:06:43,471 INFO [disaster_dispatcher] LINE webhook received signature=DnWdukKNtZKDAqPwobJtTmkSr6XeEhFuoM5TCyJEYs8= body={"destination":"Ub7dc5c377eba0f6a6eef80558199e806","events":[{"type":"message","message":{"type":"text","id":"620003192977228410","quoteToken":"jSetr_PYB8XLkaZaBvaL7Ibj5YYinh4I2iNftSg5IkNtmHnrmptnNG2-UCLOjinjMwNx5_ilgXahlSZhUGEPRueGwm4kK9BADKjfwjgvjJ8tOKpHsVukEFMSN0JgjzBpzAexoglaFABKbiMa38__KQ","markAsReadToken":"LJbei8cg6jiYnt2FHw8KR_RICg0FLHyGk3gGzWYVJ_MOPcfeM7Y1LmG4sqa1KiMJje_yRJqdv3QnmLWBu1S4V-Z1lMZfQqqoAd_42HYgoPrr5iUYApNjZAHJEmO3O86xLk8Ix7rxpCP9HhRzRCC-yDpzDOROFNXDMk70HbLh5egb9ssAHDEQuFfN-FK2GriZNYsMgHbNlfVU90bQVK5ziA","text":"結束報名"},"webhookEventId":"01KVZ3Y31F83ZQPEA9T9G73BH2","deliveryContext":{"isRedelivery":false},"timestamp":1782382004784,"source":{"type":"group","groupId":"C004a0bfa1bf551f316301f1728a80804","userId":"U75dde956d385c98bf6971c88d577f8a5"},"replyToken":"676f83bc169c45558df84b78e6bba93e","mode":"active"}]}
+2026-06-25 18:06:43,472 INFO [disaster_dispatcher] LINE message event source=group group_id=C004a0bfa1bf551f316301f1728a80804 user_id=U75dde956d385c98bf6971c88d577f8a5 text=結束報名
+2026-06-25 18:06:43,472 INFO [disaster_dispatcher] 🔒 結束志工報名流程。
+2026-06-25 18:06:47,603 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:06:54,311 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804
+2026-06-25 18:06:54,311 INFO [disaster_dispatcher] 🗑️ 已清除派工設定。
+2026-06-25 18:06:54,311 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-25 18:09:25,832 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:09:25,832 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:09:25,832 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:16:03,239 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:16:03,239 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:16:03,239 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:16:13,019 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:16:13,020 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:16:13,020 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:16:19,157 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:21:52,606 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:21:52,606 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:21:52,606 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:21:55,038 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:21:55,038 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:21:55,038 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:22:10,165 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-25 18:22:10,165 INFO [disaster_dispatcher] 📌 已儲存派工設定。
+2026-06-25 18:22:10,165 INFO [disaster_dispatcher] 📣 開始志工報名流程。
+2026-06-25 18:22:10,415 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804
+2026-06-25 18:26:39,538 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:26:39,538 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:26:39,538 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:26:45,762 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:26:56,712 INFO [disaster_dispatcher] LINE webhook received signature=z1yORR8OwygWUlO9ak0sP38aqaRRrs3wH+ytUdLPRa4= body={"destination":"Ub7dc5c377eba0f6a6eef80558199e806","events":[{"type":"message","message":{"type":"text","id":"620005228372820073","quoteToken":"ObBjOta38K5gL41WuWlv0Bs9IQn3zRf2MhggLEKRsaV322h4UEmU7y0kKIUCipUimKNn3wbLsadAzNI_v0ri-stbXZOM0PQB0tobs9EQtIGlTyVtPespcOLsUlRfMqZCsWKlhXjhaoelXyOStB6IAA","markAsReadToken":"6UhFPZ8PsSHLys9ONsKDYRpdM18Y0w3XYjXljRUCnW-MjD7n5tMb8Cr620UPKky9V62AR57KCv8rQAhJcgntqiTG8A9MwyzKWGAQLTNPE8Nqzl3HNML-V91FT9O6jz_a5ImHUWD0gful0ugoh_Grit93qrTMzWrvphE23I7Q_kdljSN4nbsqANWuPrcxOS2YM1DX4Pg3Ql3A4gL75JINhw","text":"測試資料：小白吃  ericisgay  臺北市中正區黎明里襄陽路2號  耍憨 / 正哦祥 howmanypeopledoyouseeinthepicture 臺北市萬華區福星里洛陽街67號 溝通 / 啊我不要阿 whyericisgay 臺北市中正區新營里愛國東路110巷24號 搬運,溝通"},"webhookEventId":"01KVZ533X3N5TMVN9A8B7RGEN1","deliveryContext":{"isRedelivery":false},"timestamp":1782383218088,"source":{"type":"group","groupId":"C004a0bfa1bf551f316301f1728a80804","userId":"U75dde956d385c98bf6971c88d577f8a5"},"replyToken":"1436a3eee3a24667acef896dfdbabdee","mode":"active"}]}
+2026-06-25 18:26:56,714 INFO [disaster_dispatcher] LINE message event source=group group_id=C004a0bfa1bf551f316301f1728a80804 user_id=U75dde956d385c98bf6971c88d577f8a5 text=測試資料：小白吃  ericisgay  臺北市中正區黎明里襄陽路2號  耍憨 / 正哦祥 howmanypeopledoyouseeinthepicture 臺北市萬華區福星里洛陽街67號 溝通 / 啊我不要阿 whyericisgay 臺北市中正區新營里愛國東路110巷24號 搬運,溝通
+2026-06-25 18:26:56,903 INFO [disaster_dispatcher] LINE 回覆已送出。來源類型: group
+2026-06-25 18:27:02,991 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:27:02,992 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:27:02,992 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:27:18,188 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:27:18,189 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:27:18,189 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:27:24,355 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:27:47,336 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:27:47,336 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:27:47,336 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:27:49,935 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:27:49,935 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:27:49,935 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:27:54,864 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:27:54,864 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:27:54,864 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:28:01,018 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:28:20,257 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:28:20,257 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:28:20,257 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:28:22,873 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:28:22,873 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:28:22,873 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:28:24,273 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:28:24,274 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:28:24,274 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:28:30,432 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:28:36,770 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:28:43,158 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:28:50,585 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:29:54,271 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-25 18:29:54,271 INFO [disaster_dispatcher] 📌 已儲存派工設定。
+2026-06-25 18:29:54,272 INFO [disaster_dispatcher] 📣 開始志工報名流程。
+2026-06-25 18:29:54,494 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804
+2026-06-25 18:30:23,687 INFO [disaster_dispatcher] 📥 收到志工報名資料: 小白吃
+2026-06-25 18:30:55,042 INFO [disaster_dispatcher] 📥 收到志工報名資料: 正哦祥
+2026-06-25 18:31:19,694 INFO [disaster_dispatcher] 📥 收到志工報名資料: 啊我不要阿
+2026-06-25 18:31:34,047 INFO [disaster_dispatcher] LINE webhook received signature=tiHygn6hekNUasBXTLsWiQdydRy+xFE90dsWIuMtEnQ= body={"destination":"Ub7dc5c377eba0f6a6eef80558199e806","events":[{"type":"message","message":{"type":"text","id":"620005693889708462","quoteToken":"cgBln7Dm37N8cSDsFUkv9I1kU0JNZeuUvSyzzqpUsBfH4fjwTNls7qLRHl4vAQmZ1_NUOZngnqLAdY_abkFXNTpnn37_fWnEz3ntKcwby31p_2WBdrpE1xtuJN_e5qAfgU9dI_kgD8LCxSxryLcE5Q","markAsReadToken":"kzTfyTNBtNrah839xXzJprXjG8Yzam70OUQmYCEYVLOHb1CzbklvI3UhQhLNBVj9N1Qh8VFlD92ef9bOXs4KuoKrmIJzpNrjdnCWXH2-t-NfjMvY7VnBe-04iIYdG4qnPrSLxf2bxH2iuq0iss8JhWY0Epuvn4ojs_Q8Zqh7VwyTLRTJy85WVDQTLsDj7utVqnVgRORWJlBmWLCd5fInpA","text":"結束報名"},"webhookEventId":"01KVZ5BJRG8AFGKDY4X72B2F5A","deliveryContext":{"isRedelivery":false},"timestamp":1782383495445,"source":{"type":"group","groupId":"C004a0bfa1bf551f316301f1728a80804","userId":"U75dde956d385c98bf6971c88d577f8a5"},"replyToken":"fe4c37153124499eb68e29ef3946fc8b","mode":"active"}]}
+2026-06-25 18:31:34,048 INFO [disaster_dispatcher] LINE message event source=group group_id=C004a0bfa1bf551f316301f1728a80804 user_id=U75dde956d385c98bf6971c88d577f8a5 text=結束報名
+2026-06-25 18:31:34,048 INFO [disaster_dispatcher] 🔒 結束志工報名流程。
+2026-06-25 18:31:38,154 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:31:42,261 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804
+2026-06-25 18:31:42,261 INFO [disaster_dispatcher] 🗑️ 已清除派工設定。
+2026-06-25 18:31:42,261 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-25 18:32:53,842 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:32:53,842 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:32:53,842 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:33:30,628 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:33:30,628 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:33:30,629 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:33:30,800 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-25 18:33:30,800 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-25 18:33:30,800 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-25 18:33:36,968 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:33:45,174 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:33:51,515 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:33:57,930 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:34:15,874 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-25 18:34:15,875 INFO [disaster_dispatcher] 📌 已儲存派工設定。
+2026-06-25 18:34:15,875 INFO [disaster_dispatcher] 📣 開始志工報名流程。
+2026-06-25 18:34:16,116 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804
+2026-06-25 18:35:03,111 INFO [disaster_dispatcher] 📥 收到志工報名資料: 小白吃
+2026-06-25 18:35:31,010 INFO [disaster_dispatcher] LINE webhook received signature=vF88wbWW8PunMxVEcyGhGv0uVv5xZYEosAExjpltak8= body={"destination":"Ub7dc5c377eba0f6a6eef80558199e806","events":[{"type":"message","message":{"type":"text","id":"620006091459920571","quoteToken":"8mv7ukVgUXl33ROWwIpc804ukAZT5ebt_efdICndF7a4CBfvekAPyDE1Sy8ViUv4bOxZuVcfvDO07JjHSlD6UKqEdJLJHGVpantYyfRo2Qxh1z1JNnTnDPbJN3u8_xr--Acm0ZZGW45rnVNtXFmo1g","markAsReadToken":"_XDJdOMlBVsbW3eW068Qi3M4W-ZL0ad0d7wdMVKxg84ztpq3LnOQlABrJZ9IN8Zf-En5f6qLdrS9CNuhbvB7OiUsmN69OEwBuVmfm84TZgWkLBW2E1OlCfKE4mijqNWpE8zH3g7tKa_MB6awAAhUdtYIsPwIlKWhx_z2lfRDLtQpio6M9p0cG9EPrZW9__U2QWy0XP4Gl9QCOm-7_Szqlw","text":"測試資料：小白吃  ericisgay  臺北市中正區黎明里襄陽路2號  耍憨 / 正哦祥 howmanypeopledoyouseeinthepicture 臺北市萬華區福星里洛陽街67號 溝通 / 啊我不要阿 whyericisgay 臺北市中正區新營里愛國東路110巷24號 搬運,溝通"},"webhookEventId":"01KVZ5JT5X19K789921TEMM1CP","deliveryContext":{"isRedelivery":false},"timestamp":1782383732589,"source":{"type":"group","groupId":"C004a0bfa1bf551f316301f1728a80804","userId":"U75dde956d385c98bf6971c88d577f8a5"},"replyToken":"72c9ade4fb184620bf8e9a48ab2a8850","mode":"active"}]}
+2026-06-25 18:35:31,011 INFO [disaster_dispatcher] LINE message event source=group group_id=C004a0bfa1bf551f316301f1728a80804 user_id=U75dde956d385c98bf6971c88d577f8a5 text=測試資料：小白吃  ericisgay  臺北市中正區黎明里襄陽路2號  耍憨 / 正哦祥 howmanypeopledoyouseeinthepicture 臺北市萬華區福星里洛陽街67號 溝通 / 啊我不要阿 whyericisgay 臺北市中正區新營里愛國東路110巷24號 搬運,溝通
+2026-06-25 18:35:31,220 INFO [disaster_dispatcher] LINE 回覆已送出。來源類型: group
+2026-06-25 18:36:10,143 INFO [disaster_dispatcher] 📥 收到志工報名資料: 正哦祥
+2026-06-25 18:37:00,780 INFO [disaster_dispatcher] 📥 收到志工報名資料: 啊我不要阿
+2026-06-25 18:38:30,433 INFO [disaster_dispatcher] LINE webhook received signature=2wDsSKoI2OC2bMOX5QS7lPHVNZUzUyE9QdkZq7oHruo= body={"destination":"Ub7dc5c377eba0f6a6eef80558199e806","events":[{"type":"message","message":{"type":"text","id":"620006392526536943","quoteToken":"5khPYhOD_ayqMJl7X4SMN5z0IEfdy7xSAt9c_gu7KLJq-LyuKPFacx3hjvDWMf3sFLVkxoXDYSvoVRII2bd4ZD9mDfAL1NbG0e2WeVAnSVOG8N5o2q2anLOTkHNgz_G1qvvb-bQsQfvNVDUQur_2GA","markAsReadToken":"WgdK_4ZKsNDhsPE_3TZzqiW80a30u-ACEcA2DvrcZKNP_3qqJ96YXhyxtsm1gWEh02apD8whoqMXa_r31DBnoLZ79AD__1D0g9F1oU0_s16VQMa3GuxepAh3sgelJbKh5lV-9mrZ8Xh6ut8i7cfgzHpp4UJIzc2COipYtiJi0H3bw7HjeX0ot4bFSt1iPSMyQGntGnhAA-nM-7tRIqnMmA","text":"結束報名"},"webhookEventId":"01KVZ5R9DERHM4N54A2YYZSGRX","deliveryContext":{"isRedelivery":false},"timestamp":1782383911860,"source":{"type":"group","groupId":"C004a0bfa1bf551f316301f1728a80804","userId":"U75dde956d385c98bf6971c88d577f8a5"},"replyToken":"7c629c38327942178c61bb3715c9f082","mode":"active"}]}
+2026-06-25 18:38:30,434 INFO [disaster_dispatcher] LINE message event source=group group_id=C004a0bfa1bf551f316301f1728a80804 user_id=U75dde956d385c98bf6971c88d577f8a5 text=結束報名
+2026-06-25 18:38:30,434 INFO [disaster_dispatcher] 🔒 結束志工報名流程。
+2026-06-25 18:38:34,551 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 18:38:37,421 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804
+2026-06-25 18:38:37,422 INFO [disaster_dispatcher] 🗑️ 已清除派工設定。
+2026-06-25 18:38:37,422 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-25 21:10:32,878 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-25 21:10:32,878 INFO [disaster_dispatcher] 📌 已儲存派工設定。
+2026-06-25 21:10:32,878 INFO [disaster_dispatcher] 📣 開始志工報名流程。
+2026-06-25 21:10:33,123 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804
+2026-06-25 21:10:57,385 INFO [disaster_dispatcher] 📥 收到志工報名資料: 啊我不要阿
+2026-06-25 21:11:09,506 INFO [disaster_dispatcher] 📥 收到志工報名資料: 小白吃
+2026-06-25 21:11:11,627 INFO [disaster_dispatcher] 📥 收到志工報名資料: 正哦祥
+2026-06-25 21:11:25,468 INFO [disaster_dispatcher] LINE webhook received signature=xk9dvWubwnzk5RUmeX/x0FuVG72IhQOq1m45nF1E4Ng= body={"destination":"Ub7dc5c377eba0f6a6eef80558199e806","events":[{"type":"message","message":{"type":"text","id":"620021785186009399","quoteToken":"ude7SvY5nZzKF3CBDWffPcAzLVepfprfp0HstSIAljdk56nP16yDAaXhJESlFwwgXfnq_Hs1VECrUDdkqj25Tk0op-r_yewUM2fe-K9yp-aZLIXhCT0HkYXjV24ULF--ft9-8AVcmRP7z9nODXV0Vg","markAsReadToken":"GEsgF8bJKgjoDTFafsSMgn4Co_zNnvtSpfNxZ8RP2bMh51nWDVIN3ip8Rg0ilyhnG5G1ZQApkItftdUZbhZP19KBpkOKbhDSntOUES88qIqDCub4cbzKQYleoGlrxAyyXn3U8Lx0uKiDdHK2rvGnw30uUA_p29a0jNqyp4pmZqy-49i5jXTjR2sbh3uwQB8zMfMTa2GWWhEUUDwPL7V0kA","text":"結束報名"},"webhookEventId":"01KVZEG945P41TZT9ZM9EX8KRZ","deliveryContext":{"isRedelivery":false},"timestamp":1782393086603,"source":{"type":"group","groupId":"C004a0bfa1bf551f316301f1728a80804","userId":"U75dde956d385c98bf6971c88d577f8a5"},"replyToken":"14ce018716a649c9b87b2a23a2721767","mode":"active"}]}
+2026-06-25 21:11:25,469 INFO [disaster_dispatcher] LINE message event source=group group_id=C004a0bfa1bf551f316301f1728a80804 user_id=U75dde956d385c98bf6971c88d577f8a5 text=結束報名
+2026-06-25 21:11:25,469 INFO [disaster_dispatcher] 🔒 結束志工報名流程。
+2026-06-25 21:11:29,594 INFO [disaster_dispatcher] 🔍 使用 AI 進行異常檢查（僅限驗證）
+2026-06-25 21:11:35,447 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804
+2026-06-25 21:11:35,447 INFO [disaster_dispatcher] 🗑️ 已清除派工設定。
+2026-06-25 21:11:35,447 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-28 13:17:22,595 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-28 13:17:22,596 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-28 13:17:22,596 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-28 13:17:25,104 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-28 13:17:25,105 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-28 13:17:25,105 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-28 13:31:13,740 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-28 13:31:13,741 INFO [disaster_dispatcher] 📌 已儲存派工設定。
+2026-06-28 13:31:13,741 INFO [disaster_dispatcher] 📣 開始志工報名流程。
+2026-06-28 13:31:13,967 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804
+2026-06-28 13:35:35,286 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-28 13:35:35,286 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-28 13:35:35,286 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-28 13:35:42,892 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-28 13:35:42,892 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-28 13:35:42,892 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-28 13:36:44,276 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-28 13:36:44,276 INFO [disaster_dispatcher] 📌 已儲存派工設定。
+2026-06-28 13:36:44,276 INFO [disaster_dispatcher] 📣 開始志工報名流程。
+2026-06-28 13:36:44,515 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804
+2026-06-28 13:39:14,885 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-28 13:39:14,885 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-28 13:39:14,885 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-28 13:39:26,878 INFO [disaster_dispatcher] 🚀 Dispatch Service 初始化完成
+2026-06-28 13:39:26,878 INFO [disaster_dispatcher] 📍 Ollama 伺服器: http://localhost:11434
+2026-06-28 13:39:26,879 INFO [disaster_dispatcher] 🔍 偵錯模型: qwen2.5-coder:7b
+2026-06-28 13:49:41,042 INFO [disaster_dispatcher] 🗑️ 已清空報名資料。
+2026-06-28 13:49:41,043 INFO [disaster_dispatcher] 📌 已儲存派工設定。
+2026-06-28 13:49:41,043 INFO [disaster_dispatcher] 📣 開始志工報名流程。
+2026-06-28 13:49:41,332 INFO [disaster_dispatcher] LINE 群組訊息已發送到 C004a0bfa1bf551f316301f1728a80804

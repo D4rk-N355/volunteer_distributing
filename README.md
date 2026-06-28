@@ -136,7 +136,40 @@ AI 僅用於「異常檢查」與驗證提示，非主要分派決策。
 python -m pip install -r requirements.txt
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
+## 本地運作測試（使用 ngrok）
 
+1. 啟動本地服務：
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+2. 啟動 ngrok 並建立公開網址：
+
+```bash
+ngrok http 8000
+```
+
+3. 將 ngrok 生成的 `https://...` 公開網址，設定到 `.env` 中的 `APP_BASE_URL`：
+
+```bash
+APP_BASE_URL=https://xxxxxx.ngrok-free.dev
+```
+
+4. 若要測試 LINE webhook，請在 LINE Developer Console 或 LINE Messaging API webhook 設定中，將 Webhook URL 設為：
+
+```text
+https://<your-ngrok-domain>.ngrok-free.dev/webhook
+```
+
+5. 本地測試時你也可以直接呼叫健康檢查與 dispatch API：
+
+```bash
+curl http://127.0.0.1:8000/health
+curl -X POST http://127.0.0.1:8000/api/v1/dispatch -H "Content-Type: application/json" -d @sample_payloads.json
+```
+
+> 注意：本服務的派工邏輯主要由本地確定性演算法負責；若 Ollama 無法連線，仍會回傳 `algorithm_only` 結果。
 ## AI 異常檢查
 
 系統會在本地演算法分派完成後，嘗試使用 Ollama 進行額外異常檢查；若無法連線，仍然會回傳分派結果，並將 `mode` 設為 `algorithm_only`。
